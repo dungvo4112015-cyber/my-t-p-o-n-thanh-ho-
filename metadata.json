@@ -1,0 +1,8 @@
+{
+  "name": "Remix EduSmart - Quản Lý Lớp Học Thông Minh",
+  "description": "Nền tảng quản lý lớp học số toàn diện cho Nhà trường, Giáo viên, Học sinh và Phụ huynh",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

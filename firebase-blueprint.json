@@ -1,0 +1,211 @@
+{
+  "entities": {
+    "SchoolClass": {
+      "title": "SchoolClass",
+      "description": "Lớp học trong nhà trường",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "grade": { "type": "number" },
+        "room": { "type": "string", "maxLength": 50 },
+        "teacherId": { "type": "string", "maxLength": 128 },
+        "teacherName": { "type": "string", "maxLength": 100 },
+        "studentCount": { "type": "number" },
+        "academicYear": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["name", "grade", "academicYear"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Học sinh trong lớp",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "studentCode": { "type": "string", "maxLength": 50 },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "classId": { "type": "string", "maxLength": 128 },
+        "className": { "type": "string", "maxLength": 100 },
+        "dob": { "type": "string", "maxLength": 20 },
+        "gender": { "type": "string", "maxLength": 20 },
+        "status": { "type": "string", "maxLength": 50 },
+        "conduct": { "type": "string", "maxLength": 50 },
+        "gpa": { "type": "number" },
+        "rewardPoints": { "type": "number" }
+      },
+      "required": ["studentCode", "fullName", "classId"]
+    },
+    "QuestionBankItem": {
+      "title": "QuestionBankItem",
+      "description": "Câu hỏi trong Ngân hàng câu hỏi số",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "code": { "type": "string", "maxLength": 50 },
+        "question": { "type": "string", "maxLength": 5000 },
+        "type": { "type": "string", "maxLength": 50 },
+        "difficulty": { "type": "string", "maxLength": 50 },
+        "subject": { "type": "string", "maxLength": 100 },
+        "gradeLevel": { "type": "number" },
+        "topic": { "type": "string", "maxLength": 200 },
+        "passage": { "type": "string", "maxLength": 10000 },
+        "explanation": { "type": "string", "maxLength": 5000 },
+        "points": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["question", "type", "subject"]
+    },
+    "Quiz": {
+      "title": "Quiz",
+      "description": "Đề kiểm tra trực tuyến",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 255 },
+        "classId": { "type": "string", "maxLength": 128 },
+        "className": { "type": "string", "maxLength": 100 },
+        "subject": { "type": "string", "maxLength": 100 },
+        "durationMinutes": { "type": "number" },
+        "totalPoints": { "type": "number" },
+        "isPublished": { "type": "boolean" },
+        "attemptsCount": { "type": "number" }
+      },
+      "required": ["title", "classId", "subject", "durationMinutes"]
+    },
+    "Assignment": {
+      "title": "Assignment",
+      "description": "Nhiệm vụ & Bài tập giao cho học sinh",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 255 },
+        "description": { "type": "string", "maxLength": 5000 },
+        "classId": { "type": "string", "maxLength": 128 },
+        "className": { "type": "string", "maxLength": 100 },
+        "subject": { "type": "string", "maxLength": 100 },
+        "teacherId": { "type": "string", "maxLength": 128 },
+        "teacherName": { "type": "string", "maxLength": 100 },
+        "dueDate": { "type": "string", "maxLength": 50 },
+        "maxScore": { "type": "number" },
+        "submissionCount": { "type": "number" },
+        "gradedCount": { "type": "number" }
+      },
+      "required": ["title", "classId", "subject", "dueDate"]
+    },
+    "Submission": {
+      "title": "Submission",
+      "description": "Bài làm học sinh nộp",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "assignmentId": { "type": "string", "maxLength": 128 },
+        "studentId": { "type": "string", "maxLength": 128 },
+        "studentName": { "type": "string", "maxLength": 100 },
+        "submittedAt": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "maxLength": 50 },
+        "content": { "type": "string", "maxLength": 10000 },
+        "score": { "type": "number" },
+        "feedback": { "type": "string", "maxLength": 2000 }
+      },
+      "required": ["assignmentId", "studentId", "status"]
+    },
+    "AttendanceRecord": {
+      "title": "AttendanceRecord",
+      "description": "Bản ghi điểm danh",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "classId": { "type": "string", "maxLength": 128 },
+        "studentId": { "type": "string", "maxLength": 128 },
+        "studentName": { "type": "string", "maxLength": 100 },
+        "date": { "type": "string", "maxLength": 20 },
+        "status": { "type": "string", "maxLength": 50 },
+        "note": { "type": "string", "maxLength": 255 }
+      },
+      "required": ["classId", "studentId", "date", "status"]
+    },
+    "GradeItem": {
+      "title": "GradeItem",
+      "description": "Bản ghi điểm số",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "studentId": { "type": "string", "maxLength": 128 },
+        "studentName": { "type": "string", "maxLength": 100 },
+        "classId": { "type": "string", "maxLength": 128 },
+        "subject": { "type": "string", "maxLength": 100 },
+        "average": { "type": "number" }
+      },
+      "required": ["studentId", "classId", "subject"]
+    },
+    "LearningResource": {
+      "title": "LearningResource",
+      "description": "Tài liệu học tập",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 255 },
+        "subject": { "type": "string", "maxLength": 100 },
+        "gradeLevel": { "type": "number" },
+        "fileType": { "type": "string", "maxLength": 20 },
+        "fileUrl": { "type": "string", "maxLength": 1000 },
+        "downloads": { "type": "number" }
+      },
+      "required": ["title", "subject", "fileUrl"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Hồ sơ người dùng",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 100 },
+        "name": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["email", "name", "role"]
+    }
+  },
+  "firestore": {
+    "/classes/{classId}": {
+      "schema": { "$ref": "#/entities/SchoolClass" },
+      "description": "Danh sách các lớp học"
+    },
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Danh sách học sinh"
+    },
+    "/question_bank/{questionId}": {
+      "schema": { "$ref": "#/entities/QuestionBankItem" },
+      "description": "Ngân hàng câu hỏi chuẩn hóa"
+    },
+    "/quizzes/{quizId}": {
+      "schema": { "$ref": "#/entities/Quiz" },
+      "description": "Các bài kiểm tra trực tuyến"
+    },
+    "/assignments/{assignmentId}": {
+      "schema": { "$ref": "#/entities/Assignment" },
+      "description": "Bài tập & nhiệm vụ học tập"
+    },
+    "/submissions/{submissionId}": {
+      "schema": { "$ref": "#/entities/Submission" },
+      "description": "Bài nộp của học sinh"
+    },
+    "/attendance/{recordId}": {
+      "schema": { "$ref": "#/entities/AttendanceRecord" },
+      "description": "Dữ liệu điểm danh theo ngày"
+    },
+    "/grades/{gradeId}": {
+      "schema": { "$ref": "#/entities/GradeItem" },
+      "description": "Sổ điểm điện tử"
+    },
+    "/resources/{resourceId}": {
+      "schema": { "$ref": "#/entities/LearningResource" },
+      "description": "Kho học liệu & tài liệu số"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Thông tin tài khoản người dùng"
+    }
+  }
+}

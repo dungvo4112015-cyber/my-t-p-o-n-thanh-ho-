@@ -1,0 +1,93 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == "dungvo.4112015@gmail.com" ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Classes collection
+    match /classes/{classId} {
+      allow read: if isSignedIn() && isValidId(classId);
+      allow create, update, delete: if isSignedIn() && isValidId(classId);
+    }
+
+    // Students collection
+    match /students/{studentId} {
+      allow read: if isSignedIn() && isValidId(studentId);
+      allow create, update, delete: if isSignedIn() && isValidId(studentId);
+    }
+
+    // Question Bank collection
+    match /question_bank/{questionId} {
+      allow read: if isSignedIn() && isValidId(questionId);
+      allow create, update, delete: if isSignedIn() && isValidId(questionId);
+    }
+
+    // Quizzes collection
+    match /quizzes/{quizId} {
+      allow read: if isSignedIn() && isValidId(quizId);
+      allow create, update, delete: if isSignedIn() && isValidId(quizId);
+    }
+
+    // Assignments collection
+    match /assignments/{assignmentId} {
+      allow read: if isSignedIn() && isValidId(assignmentId);
+      allow create, update, delete: if isSignedIn() && isValidId(assignmentId);
+    }
+
+    // Submissions collection
+    match /submissions/{submissionId} {
+      allow read: if isSignedIn() && isValidId(submissionId);
+      allow create: if isSignedIn() && isValidId(submissionId);
+      allow update, delete: if isSignedIn() && isValidId(submissionId);
+    }
+
+    // Attendance collection
+    match /attendance/{recordId} {
+      allow read: if isSignedIn() && isValidId(recordId);
+      allow create, update, delete: if isSignedIn() && isValidId(recordId);
+    }
+
+    // Grades collection
+    match /grades/{gradeId} {
+      allow read: if isSignedIn() && isValidId(gradeId);
+      allow create, update, delete: if isSignedIn() && isValidId(gradeId);
+    }
+
+    // Resources collection
+    match /resources/{resourceId} {
+      allow read: if isSignedIn() && isValidId(resourceId);
+      allow create, update, delete: if isSignedIn() && isValidId(resourceId);
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isSignedIn() && isValidId(userId);
+      allow write: if isSignedIn() && isValidId(userId) && (request.auth.uid == userId || isAdmin());
+    }
+
+    // Test connection doc
+    match /test/{docId} {
+      allow read: if true;
+    }
+  }
+}
